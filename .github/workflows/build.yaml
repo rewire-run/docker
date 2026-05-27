@@ -52,3 +52,4 @@ jobs:
           tags: |
             ${{ env.IMAGE_NAME }}:${{ matrix.ros_distro }}
             ${{ env.IMAGE_NAME }}:${{ matrix.ros_distro }}-${{ env.VERSION }}
+            ${{ matrix.ros_distro == 'jazzy' && format('{0}:latest', env.IMAGE_NAME) || '' }}
