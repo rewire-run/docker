@@ -5,8 +5,8 @@
 </h1>
 
 <p align="center">
-  <a href="https://github.com/rewire-run/rewire-docker/actions/workflows/build.yaml">
-    <img alt="Build" src="https://github.com/rewire-run/rewire-docker/actions/workflows/build.yaml/badge.svg">
+  <a href="https://github.com/rewire-run/docker/actions/workflows/build.yaml">
+    <img alt="Build" src="https://github.com/rewire-run/docker/actions/workflows/build.yaml/badge.svg">
   </a>
   <a href="https://github.com/rewire-run/rewire/releases/latest">
     <img alt="Version" src="https://img.shields.io/badge/dynamic/regex?url=https%3A%2F%2Freleases.rewire.run%2Fversion.txt&search=%5Cd%2B%5C.%5Cd%2B%5C.%5Cd%2B&label=version&prefix=v&color=green">
