@@ -32,11 +32,13 @@ and zenoh-bridge-ros2dds.
 | Tag | ROS 2 | Ubuntu | Architecture |
 |-----|-------|--------|-------------|
 | `rewirerun/rewire:humble` | Humble | 22.04 | amd64, arm64 |
-| `rewirerun/rewire:jazzy`, `rewirerun/rewire:latest` | Jazzy | 24.04 | amd64, arm64 |
+| `rewirerun/rewire:jazzy` | Jazzy | 24.04 | amd64, arm64 |
 | `rewirerun/rewire:kilted` | Kilted | 24.04 | amd64, arm64 |
 | `rewirerun/rewire:lyrical` | Lyrical | 26.04 | amd64, arm64 |
 
 Every tag also has a version-pinned variant, e.g. `rewirerun/rewire:jazzy-0.7.0`.
+
+There is no `latest` tag — the distro tag *is* the latest build for that distro, so always pull by distro.
 
 ## Quick Start
 
