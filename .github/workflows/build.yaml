@@ -1,5 +1,7 @@
 name: build
 
+run-name: build ${{ inputs.rewire_version && format('v{0}', inputs.rewire_version) || github.ref_name }}
+
 on:
   push:
     tags:
