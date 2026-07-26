@@ -23,8 +23,9 @@ jobs:
     name: ${{ matrix.ros_distro }}
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        ros_distro: [humble, jazzy]
+        ros_distro: [humble, jazzy, kilted, lyrical]
     steps:
       - uses: actions/checkout@v6
 

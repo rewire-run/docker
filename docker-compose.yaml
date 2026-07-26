@@ -4,6 +4,9 @@
 #   docker compose --profile dds up           # DDS multicast (default ROS 2)
 #   docker compose --profile viewer up        # DDS + connect to Rerun viewer on host
 #   docker compose --profile zenoh up         # Full Zenoh (rmw_zenoh_cpp + router)
+#
+# Pick a distro with REWIRE_IMAGE (defaults to rewirerun/rewire:humble):
+#   REWIRE_IMAGE=rewirerun/rewire:lyrical docker compose --profile dds up
 
 services:
 
@@ -11,13 +14,13 @@ services:
   # Standard ROS 2 DDS multicast discovery on a shared Docker bridge network.
 
   talker:
-    image: rewirerun/rewire:humble
+    image: ${REWIRE_IMAGE:-rewirerun/rewire:humble}
     command: ros2 run demo_nodes_cpp talker
     networks: [ros]
     profiles: [dds]
 
   rewire-dds:
-    image: rewirerun/rewire:humble
+    image: ${REWIRE_IMAGE:-rewirerun/rewire:humble}
     command: rewire record --all --save /data/recording.rrd
     networks: [ros]
     volumes: [./data:/data]
@@ -29,13 +32,13 @@ services:
   # Start Rerun on your host first: rerun
 
   talker-viewer:
-    image: rewirerun/rewire:humble
+    image: ${REWIRE_IMAGE:-rewirerun/rewire:humble}
     command: ros2 run demo_nodes_cpp talker
     networks: [ros]
     profiles: [viewer]
 
   rewire-viewer:
-    image: rewirerun/rewire:humble
+    image: ${REWIRE_IMAGE:-rewirerun/rewire:humble}
     command: rewire record --all --connect rerun+http://host.docker.internal:9876/proxy
     networks: [ros]
     extra_hosts:
@@ -48,13 +51,13 @@ services:
   # Rewire discovers topics via Zenoh.
 
   zenoh-router:
-    image: rewirerun/rewire:humble
+    image: ${REWIRE_IMAGE:-rewirerun/rewire:humble}
     command: zenohd --no-multicast-scouting --listen tcp/0.0.0.0:7447
     networks: [ros]
     profiles: [zenoh]
 
   talker-zenoh:
-    image: rewirerun/rewire:humble
+    image: ${REWIRE_IMAGE:-rewirerun/rewire:humble}
     command: ros2 run demo_nodes_cpp talker
     environment:
       RMW_IMPLEMENTATION: rmw_zenoh_cpp
@@ -63,7 +66,7 @@ services:
     profiles: [zenoh]
 
   rewire-zenoh:
-    image: rewirerun/rewire:humble
+    image: ${REWIRE_IMAGE:-rewirerun/rewire:humble}
     command: rewire record --all --zenoh-connect tcp/zenoh-router:7447 --save /data/recording.rrd
     networks: [ros]
     volumes: [./data:/data]

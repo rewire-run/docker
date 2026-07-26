@@ -29,10 +29,14 @@ and zenoh-bridge-ros2dds.
 
 ## Images
 
-| Tag | ROS 2 | Architecture |
-|-----|-------|-------------|
-| `rewirerun/rewire:humble` | Humble | amd64, arm64 |
-| `rewirerun/rewire:jazzy` | Jazzy | amd64, arm64 |
+| Tag | ROS 2 | Ubuntu | Architecture |
+|-----|-------|--------|-------------|
+| `rewirerun/rewire:humble` | Humble | 22.04 | amd64, arm64 |
+| `rewirerun/rewire:jazzy`, `rewirerun/rewire:latest` | Jazzy | 24.04 | amd64, arm64 |
+| `rewirerun/rewire:kilted` | Kilted | 24.04 | amd64, arm64 |
+| `rewirerun/rewire:lyrical` | Lyrical | 26.04 | amd64, arm64 |
+
+Every tag also has a version-pinned variant, e.g. `rewirerun/rewire:jazzy-0.7.0`.
 
 ## Quick Start
 
@@ -54,6 +58,12 @@ docker compose --profile zenoh-bridge up   # DDS nodes + zenoh-bridge-ros2dds
 ```
 
 Each profile starts a talker node and rewire, saving a recording to `./data/recording.rrd`.
+
+The scenarios default to Humble. Set `REWIRE_IMAGE` to run them on another distro:
+
+```bash
+REWIRE_IMAGE=rewirerun/rewire:lyrical docker compose --profile dds up
+```
 
 ## Running with Your Own Nodes
 
@@ -100,7 +110,7 @@ ROS 2 is already sourced. Run any ROS 2 or rewire command directly.
 
 | Component | Source | Purpose |
 |-----------|--------|---------|
-| ROS 2 Humble/Jazzy | OSRF apt | Run nodes, replay bags |
+| ROS 2 Humble/Jazzy/Kilted/Lyrical | OSRF apt | Run nodes, replay bags |
 | rewire | [GitHub Releases](https://github.com/rewire-run/rewire/releases) | Bridge ROS 2 topics to Rerun |
 | zenohd | conda-forge via pixi | Zenoh router |
 | zenoh-bridge-ros2dds | [Eclipse Zenoh](https://github.com/eclipse-zenoh/zenoh-plugin-ros2dds) | DDS ↔ Zenoh bridge |
@@ -135,12 +145,14 @@ docker run --rm rewirerun/rewire:humble bash -c '
 ```bash
 docker build -t rewire:humble .
 docker build --build-arg ROS_DISTRO=jazzy -t rewire:jazzy .
+docker build --build-arg ROS_DISTRO=kilted -t rewire:kilted .
+docker build --build-arg ROS_DISTRO=lyrical -t rewire:lyrical .
 ```
 
 ### Build Arguments
 
 | Argument | Default | Description |
 |----------|---------|-------------|
-| `ROS_DISTRO` | `humble` | ROS 2 distribution |
+| `ROS_DISTRO` | `humble` | ROS 2 distribution (`humble`, `jazzy`, `kilted`, `lyrical`) |
 | `REWIRE_VERSION` | `0.3.1` | Rewire release version |
 | `ZENOH_BRIDGE_VERSION` | `1.8.0` | zenoh-bridge-ros2dds version |
